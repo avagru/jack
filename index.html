@@ -26,6 +26,8 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Roboto:wght@400;700&family=Saira+Stencil+One&display=swap"
     rel="stylesheet">
+  <link href="https://api.mapbox.com/mapbox-gl-js/v3.9.4/mapbox-gl.css" rel="stylesheet">
+  <script src="https://api.mapbox.com/mapbox-gl-js/v3.9.4/mapbox-gl.js"></script>
 </head>
 
 <body id="top" class="dark_theme">
@@ -681,52 +683,35 @@
         - #CONTACT
       -->
 
-      <section class="contact" id="contact">
+      <section id="contact" style="position: relative;">
+        
+        <div class="contact">
+          <div style="position: relative; border-radius: 10px;">
+            <div id="map" style="height: 100%; border-radius: 10px;"></div>
+            <li class="contact-list-item" style="position: absolute; bottom: 0px; left: 10px; margin-bottom: 0px;">
 
-        <div class="contact-content section-content" data-aos="fade-up">
-
-          <p class="section-subtitle">Contact</p>
-
-          <h2 class="h3 section-title">Have You Any Project? Please Drop a Message</h2>
-
-          <p class="section-text">
-            Get in touch and let me know how i can help. Fill out the form and i’ll be in touch as soon as possible.
-          </p>
-
-          <ul class="contact-list">
-
-            <li class="contact-list-item">
-
-              <div class="contact-item-icon">
+              <div class="contact-item-icon" style="color: #e38445;">
                 <ion-icon name="location-outline"></ion-icon>
               </div>
 
               <div class="wrapper">
-                <h3 class="h4 contact-item-title">Address:</h3>
-
-                <address class="contact-info">
-                  50 Main St,  <br/>Thorner,  <br/>Leeds LS14 3BX,  <br/>United Kingdom
+                <address class="contact-info" style="color: #e38445;">
+                  50 Main St, Thorner, Leeds LS14 3BX, United Kingdom
                 </address>
               </div>
 
             </li>
 
-            <li class="contact-list-item">
+            <li style="position: absolute; top: 10px; right: 10px;">
+              <ul class="contac-social-list" style="padding: 0;">
 
-              <div class="contact-item-icon">
-                <ion-icon name="mail-outline"></ion-icon>
-              </div>
+                <li>
+                  <a href="mailto:kai.brooks.0815@gmail.com" class="contact-social-link">
+                    <div class="tooltip">kai.brooks.0815@gmail.com</div>
 
-              <div class="wrapper">
-                <h3 class="h4 contact-item-title">Email:</h3>
-
-                <a href="mailto:kai.brooks.0815@gmail.com" class="contact-info">kai.brooks.0815@gmail.com</a>
-              </div>
-
-            </li>
-
-            <li>
-              <ul class="contac-social-list">
+                    <ion-icon name="mail"></ion-icon>
+                  </a>
+                </li>
 
                 <li>
                   <a href="skype:live:.cid.955a9758f850d8ed?chat" class="contact-social-link">
@@ -737,7 +722,7 @@
                 </li>
 
                 <li>
-                  <a href="https://t.me/vincentchai76" class="contact-social-link">
+                  <a href="https://t.me/software_star" class="contact-social-link">
                     <div class="tooltip">Telegram</div>
 
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-telegram" viewBox="0 0 16 16">
@@ -747,12 +732,10 @@
                 </li>
               </ul>
             </li>
-
-          </ul>
-
-        </div>
-
-        <form action="" class="contact-form" data-aos="fade-up" data-aos-delay="300">
+    
+          </div>
+          <div>
+            <form action="" class="contact-form" data-aos="fade-up" data-aos-delay="300">
 
           <div class="form-wrapper">
 
@@ -814,8 +797,9 @@
 
           <button type="submit" class="btn btn-primary">Send</button>
 
-        </form>
-
+            </form>
+          </div>
+        </div>
       </section>
 
     </article>
@@ -874,7 +858,51 @@
   -->
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+  <script>
+    // mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_ACCESS_TOKEN || "";
+    mapboxgl.accessToken = 'pk.eyJ1Ijoic2h1LXZybyIsImEiOiJjbHpxMWl1NGkxYTUxMmpxdWowZ3Vxajh2In0.X7PJs_zONFMSEf-SIyV8iw';
+      
+      const map = (window.map = new mapboxgl.Map({
+        attributionControl: false,
+        hash: true,
+        container: 'map',
+        zoom: 16.8,
+        center: [-1.428941822688502, 53.8572038717728],
+        pitch: 74,
+        bearing: 12.8,
+        style: 'mapbox://styles/mapbox/standard',
+        projection: 'globe'
+      }));
 
+      map.on('style.load', () => {
+        map.setConfigProperty('basemap', 'lightPreset', 'dusk');
+
+        // use an expression to transition some properties between zoom levels 11 and 13, preventing visibility when zoomed out
+        const zoomBasedReveal = (value) => {
+            return [
+                'interpolate',
+                ['linear'],
+                ['zoom'],
+                11,
+                0.0,
+                13,
+                value
+            ];
+        };
+
+        map.setSnow({
+            density: zoomBasedReveal(0.85),
+            intensity: 1.0,
+            'center-thinning': 0.1,
+            direction: [0, 50],
+            opacity: 1.0,
+            color: `#ffffff`,
+            'flake-size': 0.71,
+            vignette: zoomBasedReveal(0.3),
+            'vignette-color': `#ffffff`
+        });
+      });
+  </script>
 </body>
 
 </html>

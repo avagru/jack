@@ -1,0 +1,6 @@
+# Simple workflow for deploying static content to GitHub Pages
+name: Deploy static content to Pages
+
+env:
+    VITE_MAPBOX_ACCESS_TOKEN: ${{ secrets.VITE_MAPBOX_ACCESS_TOKEN }}
+    VITE_EMAILJS_ACCESS_TOKEN: ${{ secrets.VITE_EMAILJS_ACCESS_TOKEN }}
