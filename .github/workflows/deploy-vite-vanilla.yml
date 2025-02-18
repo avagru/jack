@@ -1,2 +1,6 @@
 - name: Inject environment variables
-  run: echo "window.env = { VITE_MAPBOX_ACCESS_TOKEN: '${{ secrets.VITE_MAPBOX_ACCESS_TOKEN }}' };" > dist/env.js
+  run: |
+    echo "window.env = { VITE_MAPBOX_ACCESS_TOKEN: '${{ secrets.VITE_MAPBOX_ACCESS_TOKEN }}' };" > dist/env.js
+
+- name: Verify env.js exists
+  run: ls -l dist/env.js
