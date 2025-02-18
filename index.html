@@ -858,8 +858,9 @@
   -->
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+  <script src="env.js"></script>
   <script>
-    mapboxgl.accessToken = "__MAPBOX_ACCESS_TOKEN__";
+     mapboxgl.accessToken = window.env.VITE_MAPBOX_ACCESS_TOKEN || "";
     // mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_ACCESS_TOKEN || "";
     // mapboxgl.accessToken = "pk.eyJ1Ijoic2h1LXZybyIsImEiOiJjbHpxMWl1NGkxYTUxMmpxdWowZ3Vxajh2In0.X7PJs_zONFMSEf-SIyV8iw";
       console.log("here=>", mapboxgl.accessToken)

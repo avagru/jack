@@ -1,2 +1,2 @@
-- name: Inject environment variables into HTML
-  run: sed -i 's|__MAPBOX_ACCESS_TOKEN__|${{ secrets.VITE_MAPBOX_ACCESS_TOKEN }}|g' dist/index.html
+- name: Inject environment variables
+  run: echo "window.env = { VITE_MAPBOX_ACCESS_TOKEN: '${{ secrets.VITE_MAPBOX_ACCESS_TOKEN }}' };" > dist/env.js
