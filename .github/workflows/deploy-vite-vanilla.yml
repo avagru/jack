@@ -1,6 +1,29 @@
-# Simple workflow for deploying static content to GitHub Pages
 name: Deploy static content to Pages
 
 env:
-    VITE_MAPBOX_ACCESS_TOKEN: ${{ secrets.VITE_MAPBOX_ACCESS_TOKEN }}
-    VITE_EMAILJS_ACCESS_TOKEN: ${{ secrets.VITE_EMAILJS_ACCESS_TOKEN }}
+    MAPBOX_ACCESS_TOKEN: ${{ secrets.VITE_MAPBOX_ACCESS_TOKEN }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build project
+        run: npm run build
+
+      - name: Inject environment variables into HTML
+        run: sed -i 's/__MAPBOX_ACCESS_TOKEN__/${{ secrets.VITE_MAPBOX_ACCESS_TOKEN }}/g' dist/index.html
+
+      - name: Deploy to GitHub Pages
+        uses: actions/upload-pages-artifact@v3
